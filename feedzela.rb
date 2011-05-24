@@ -45,4 +45,4 @@ end
 class  NewsItemTranslation < ActiveRecord::Base
 end
 news = News.new
-news.create∂
+news.create
