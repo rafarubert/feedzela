@@ -4,6 +4,7 @@ require "open-uri"
 require "nokogiri"
 require "date"
 require "active_record"
+URL = "http://rss.terra.com.br/0,,EI8140,00.xml"
 
 ActiveRecord::Base.establish_connection(
   :adapter => "postgresql",
@@ -12,9 +13,10 @@ ActiveRecord::Base.establish_connection(
   :password => "ruby",
   :database => "valorize_production"
 )
+
 class News
   def create
-    feeds = open("http://rss.terra.com.br/0,,EI8140,00.xml")
+    feeds = open(URL)
     document = Nokogiri::XML(feeds)
     document.children.css("item").each do |post|
       if Date.parse(post.css("pubDate").text) == Date.today
